@@ -1,0 +1,9 @@
+#Ignore Node.js dependencies node_modules/
+#Ignore Java build files target/
+.mvn/
+mvnw
+mvnw.cmd
+
+#Ignore IDE settings
+.vscode/
+.idea/

@@ -1,0 +1,64 @@
+.auth-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f9fbf9;
+
+}
+.auth-card{
+    background: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+.auth-card h2{
+    color: #2d5a27;
+    margin-bottom: 5px;
+}
+.auth-tabs{
+    display: flex;
+    margin: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+.tab{
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    color: #ccc;
+}
+.tab.active{
+    color: #58a65c;
+    border-bottom: 3px solid #58a65c;
+    font-weight: bold;
+}
+.input-group{
+    text-align: left;
+    margin-bottom: 15px;
+}
+.input-group label{
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #666;
+}
+.input-group input{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e8eee8;
+    border-radius: 10px;
+    background: #fcfdfc;
+}
+.btn-primary{
+    width: 100%;
+    padding: 14px;
+    background-color: #58a65c;
+    color: white;
+    border:none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
