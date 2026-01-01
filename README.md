@@ -16,12 +16,12 @@ This project bridges the gap between student skills and career roles. It feature
 * `/Frontend`: React application for the User Interface (Login, Signup, and Quiz).
 * `/ML_Engine`: Python scripts for data processing and career prediction.
 
-## 🤖 Use of AI
+## Use of AI
 The core of this website is a Predictive Model trained on `roo_data.csv`. 
 1. **Input**: 15 Diagnostic questions assessing logical and technical skills.
 2. **Analysis**: The backend passes scores to the Python ML model.
 3. **Output**: A personalized career recommendation with a confidence score.
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 1. **Backend**: Run `./mvnw spring-boot:run` (Requires JDK 17+ and PostgreSQL).
 2. **Frontend**: Run `npm install` and `npm start` in the `/Frontend` directory.
