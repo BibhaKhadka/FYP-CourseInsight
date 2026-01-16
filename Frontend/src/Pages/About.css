@@ -1,0 +1,40 @@
+.about-page-container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.about-content-wrapper{
+    flex: 1;
+}
+.about-hero{
+    text-align: center;
+    padding: 60px 10%;
+    background-color: #fff;
+}
+.about-hero h1{
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+.about-content{
+    padding: 40px 10%;
+    background-color: #fafcfa;
+}
+.about-row{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 80px;
+}
+.about-text{
+    flex: 1;
+}
+.about-text h2{
+    color: #2d5a27;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+.about-text p{
+    color: #555;
+    line-height: 1.8;
+    font-size: 16px;
+}
