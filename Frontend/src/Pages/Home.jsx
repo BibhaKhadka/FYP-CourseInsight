@@ -25,7 +25,7 @@ const Home = () => {
                     <span><img src={circle} alt="icon" />Personalized results</span>
                 </div>
             </section>
-            <section className='how-it-works'>
+            <section id="how-it-works" className='how-it-works'>
                 <h2>How It Works</h2>
                 <p className='section-desc'>Three simple steps to your personalized learning journey.</p>
                 <div className="steps-grid">
