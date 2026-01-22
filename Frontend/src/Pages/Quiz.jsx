@@ -88,14 +88,18 @@ const Quiz = () => {
             setCurrentStep(currentStep+1);
             setSelectedOption("");//this will reset for the next question.
         }
+        else{ 
+            alert("Quiz Finished! Preparing your Career Recommendation...")
+        }
     }
-    {
+    
         const handlePrevious=()=>{
             if(currentStep>0){
                 setCurrentStep(currentStep-1);
+                setSelectedOption("");
             }
         }
-    }
+    
 
   return (
     <div className='quiz-page-container'>
@@ -114,7 +118,7 @@ const Quiz = () => {
                 <p className="question-desc">{questions[currentStep].description}</p>
                 <div className="options-container">
                     {["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree",].map((option)=>(
-                        <label key={option} className={`option-label $ {selectOption===option ? 'selected':''}`}>
+                        <label key={option} className={`option-label $ {selectedOption===option ? 'selected':''}`}>
                             <input type="radio" name='quiz-option' value={option}
                             checked={selectedOption===option} onChange={(e)=>setSelectedOption(e.target.value)} />
                             {option}

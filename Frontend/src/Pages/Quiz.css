@@ -68,8 +68,9 @@
     background: #f9f9f9;
 }
 .option-label.selected{
-    background-color: #58a65c;
-    background:#f1f8f1;
+    border-color: #58a65c;
+    background-color: #f1f8f1;
+    font-weight: 600;
 }
 .option-label input{
     margin-right: 15px;
@@ -88,13 +89,16 @@
     border: none;
 
 }
-.nav-btn.prev{
-    background: #eee;
-    color: #666;
+.nav-btn.prev:hover:not(:disabled){
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    transition: 0.2s ease-in-out;
 }
-.nav-btn.next{
-    background: #58a65c;
-    color: white;
+.nav-btn.next:hover:not(:disabled){
+    background: #468c4a;
+    box-shadow: 0 4px 12px rgba(88, 166, 92, 0.3);
+    transform: translateY(-2px);
+    transition: 0.2s ease-in-out;
 }
 .nav-btn.next:disabled{
     background: #ccc;
