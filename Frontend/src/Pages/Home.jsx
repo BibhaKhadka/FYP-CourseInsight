@@ -1,5 +1,5 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Components/Navbar/Header';
 import Footer from '../Components/Navbar/Footer';
 import '../Pages/Home.css';
@@ -12,13 +12,24 @@ import trophy from '../assets/photos/trophy.png';
 
 const Home = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    useEffect(()=>{
+        if (location.hash==='#how-it-works'){
+            const section = document.getElementById('how-it-works');
+            if(section){
+                setTimeout(()=>{
+                    section.scrollIntoView({behavior:'smooth'});
+                }, 100);
+            }
+        }
+    }, [location]);
     return (
         <div className='home-wrapper'>
             <Header />
             <section className='hero-section'>
                 <h1>Discover Your Perfect <br /><span className='green-highlight'>Learning Path</span></h1>
                 <p>Take our intelligent quiz assessment and receive personalized course recommendations tailored to your unique skills and learning goals. </p>
-                <button className='start-btn' onClick={() => navigate('/signup')}>Start Quiz</button>
+                <button className='start-btn' onClick={() => navigate('/quiz')}>Start Quiz</button>
                 <div className="hero-info-bar">
                     <span><img src={clock} alt="icon" />5 minutes</span>
                     <span><img src={chart} alt="icon" />15 questions</span>

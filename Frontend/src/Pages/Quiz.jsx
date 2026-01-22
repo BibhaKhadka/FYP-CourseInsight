@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import '../Components/Navbar/Header'
-import'../Components/Navbar/Footer'
+import Header from '../Components/Navbar/Header'
 import Footer from '../Components/Navbar/Footer'
 import '../Pages/Quiz.css'
 const questions=[
