@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Header from '../Components/Navbar/Header'
 import Footer from '../Components/Navbar/Footer'
 import '../Pages/Quiz.css'
+import { useNavigate} from 'react-router-dom'
 const questions=[
     {
         id:1,
@@ -81,6 +82,7 @@ const questions=[
 ]
 
 const Quiz = () => {
+    const navigate = useNavigate();
     const[currentStep, setCurrentStep]=useState(0);
     const[selectedOption, setSelectedOption]=useState("");
     const handleNext=()=>{
@@ -89,7 +91,7 @@ const Quiz = () => {
             setSelectedOption("");//this will reset for the next question.
         }
         else{ 
-            alert("Quiz Finished! Preparing your Career Recommendation...")
+            navigate('/result');
         }
     }
     
@@ -118,7 +120,7 @@ const Quiz = () => {
                 <p className="question-desc">{questions[currentStep].description}</p>
                 <div className="options-container">
                     {["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree",].map((option)=>(
-                        <label key={option} className={`option-label $ {selectedOption===option ? 'selected':''}`}>
+                        <label key={option} className={`option-label ${selectedOption===option ? 'selected':''}`}>
                             <input type="radio" name='quiz-option' value={option}
                             checked={selectedOption===option} onChange={(e)=>setSelectedOption(e.target.value)} />
                             {option}
