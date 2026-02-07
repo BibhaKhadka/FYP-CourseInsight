@@ -4,6 +4,15 @@
 mvnw
 mvnw.cmd
 
+# Python (ML_engine)
+ML_engine/__pycache__/
+ML_engine/Models/
+ML_engine/venv/
+
+# Node (Frontend/Backend)
+node_modules/
+.env
+
 #Ignore IDE settings
 .vscode/
 .idea/
