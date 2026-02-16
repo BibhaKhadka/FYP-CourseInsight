@@ -3,14 +3,14 @@ import matplotlib.pyplot as plt
 import joblib
 import os
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import RobustScaler, LabelEncoder, PowerTransformer
 from sklearn.metrics import silhouette_score
 from question import FEATURE_COLUMNS
 from config import N_CLUSTERS, RANDOM_STATE, DATA_PATH, MODEL_DIR
 
 def train():
     if not os.path.exists(DATA_PATH):
-        print(f"❌ Error: {DATA_PATH} not found!")
+        print(f" Error: {DATA_PATH} not found!")
         return
 
     df = pd.read_csv(DATA_PATH).dropna()
@@ -24,8 +24,10 @@ def train():
             X[col] = le.fit_transform(X[col].astype(str).str.lower())
             encoders[col] = le
 
-    scaler = StandardScaler()
+    scaler = RobustScaler()
     X_scaled = scaler.fit_transform(X)
+    pt = PowerTransformer(method='yeo-johnson')
+    X_scaled = pt.fit_transform(X_scaled)
 
     # Elbow Method Plot
     wcss = []
@@ -40,15 +42,16 @@ def train():
     plt.savefig(f"{MODEL_DIR}/elbow_plot.png")
 
     # Final Model
-    kmeans = KMeans(n_clusters=N_CLUSTERS, init='k-means++', n_init=20, max_iter=1000, random_state=RANDOM_STATE)
+    kmeans = KMeans(n_clusters=N_CLUSTERS, init='k-means++', n_init=50, max_iter=2000, random_state=RANDOM_STATE)
     clusters = kmeans.fit_predict(X_scaled)
     
-    print(f"✨ Training Success! Silhouette Score: {silhouette_score(X_scaled, clusters):.4f}")
+    print(f" Training Success! Silhouette Score: {silhouette_score(X_scaled, clusters):.4f}")
 
     joblib.dump(kmeans, f"{MODEL_DIR}/kmeans_model.pkl")
     joblib.dump(scaler, f"{MODEL_DIR}/scaler.pkl")
+    joblib.dump(pt, f"{MODEL_DIR}/pt.pkl") 
     joblib.dump(encoders, f"{MODEL_DIR}/encoders.pkl")
-    print("✅ Assets saved in Models/")
+    print(" Assets saved in Models/")
 
 if __name__ == "__main__":
     train()

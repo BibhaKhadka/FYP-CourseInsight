@@ -1,7 +1,7 @@
 # config.py
 N_CLUSTERS = 8
 RANDOM_STATE = 42
-DATA_PATH = "Data/roo_data.csv"
+DATA_PATH = "Data/roo_data_balanced.csv"
 MODEL_DIR = "Models"
 
 # Mapped based on your Cluster Analysis results

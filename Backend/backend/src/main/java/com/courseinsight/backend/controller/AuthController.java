@@ -1,19 +1,17 @@
 package com.courseinsight.backend.controller;
+
 import com.courseinsight.backend.model.User;
 import com.courseinsight.backend.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173") //this will allow React to talk to Java.
+@CrossOrigin(origins = "http://localhost:5173") // this will allow React to talk to Java.
 
 public class AuthController {
     private final UserRepository userRepository;
 
-    public AuthController(UserRepository userRepository){
+    public AuthController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -22,11 +20,15 @@ public class AuthController {
         userRepository.save(user);
         return "User registered successfully!";
     }
-    @PostMapping("/signin")
-    public String signin(@RequestBody User user) {
-        return userRepository.findByEmail(user.getEmail()).filter(u -> u.getPassword().equals(user.getPassword())).map(u -> "Signin successful!").orElse("Invalid email or password");
+
+    @PostMapping("/login")
+    public String login(@RequestBody User loginUser) {
+        // Basic logic to check user
+        User user = userRepository.findByEmail(loginUser.getEmail());
+        if (user != null && user.getPassword().equals(loginUser.getPassword())) {
+            return "Login successful!";
+        }
+        return "Invalid email or password";
     }
-    
-    
-     
+
 }
