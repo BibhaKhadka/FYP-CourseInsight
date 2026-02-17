@@ -43,8 +43,10 @@ const Quiz = () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(answers),
                 });
+                if (!response.ok) {
+                    throw new Error("AI Server is not responding.");
+                }
                 const data = await response.json();
-                
                 // Save AI results to show on the Result Page
                 localStorage.setItem('user_recommendation', JSON.stringify(data));
                 navigate('/result');
