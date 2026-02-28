@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 function Login() {
-    // Renamed to formData for professionalism
+    // State to hold user input
     const [formData, setFormData] = useState({ email: '', password: '' });
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            // FIXED: Changed http; to http:
+            // Sending login request to Java Spring Boot (Port 8080)
             const response = await fetch('http://localhost:8080/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -18,12 +18,22 @@ function Login() {
             });
 
             const result = await response.text();
+            
+            // Debugging: See exactly what Java returns in your Browser Console (F12)
+            console.log("Java Response:", result);
 
-            // .trim() handles any hidden spaces from the Java backend
+            // Check if the response matches your Java AuthController success message
             if (response.ok && result.trim() === 'Login successful!') {
-                navigate('/quiz');
+                
+                // --- ADJUSTMENT FOR PROTECTION ---
+                // This 'isAuthenticated' key is what ProtectedRoute in App.jsx looks for
+                localStorage.setItem('isAuthenticated', 'true'); 
+                localStorage.setItem('userEmail', formData.email);
+                // ----------------------------------
+
+                navigate('/quiz'); // Redirect to protected quiz page
             } else {
-                // If result is empty, show the "Invalid" message
+                // If the message is different, show the error from Java
                 alert(result || "Invalid email or password. Please try again.");
             }
         } catch (error) {
@@ -48,6 +58,7 @@ function Login() {
                             type='email' 
                             placeholder='yourmail@gmail.com' 
                             required 
+                            // Updates the email in state
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })} 
                         />
                     </div>
@@ -57,6 +68,7 @@ function Login() {
                             type='password' 
                             placeholder='........' 
                             required 
+                            // Updates the password in state
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })} 
                         />
                     </div>

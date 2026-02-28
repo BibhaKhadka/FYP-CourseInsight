@@ -24,8 +24,6 @@ const About = () => {
                             <p>CourseInsight was developed as a Final Year Project to solve a common problem: students often feel lost when choosing a career path.
                                 Our platform uses techincal and behavioral diagnostics to provide data-backed recommendations.
                             </p>
-
-                            
                         </div>
                     </div>
                     <div className="about-row reverse">
