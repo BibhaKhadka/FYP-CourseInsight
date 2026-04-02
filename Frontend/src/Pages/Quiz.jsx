@@ -36,23 +36,46 @@ const Quiz = () => {
         if (currentStep < questions.length - 1) {
             setCurrentStep(currentStep + 1);
         } else {
-            // --- FINAL SUBMISSION TO AI ---
+            // --- FINAL SUBMISSION LOGIC ---
             try {
-                const response = await fetch('http://localhost:5000/predict', {
+                // STEP 1: Get prediction from Flask (Port 5000)
+                const aiResponse = await fetch('http://localhost:5000/predict', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(answers),
                 });
-                if (!response.ok) {
+
+                if (!aiResponse.ok) {
                     throw new Error("AI Server is not responding.");
                 }
-                const data = await response.json();
-                // Save AI results to show on the Result Page
-                localStorage.setItem('user_recommendation', JSON.stringify(data));
+
+                const aiData = await aiResponse.json();
+
+                // STEP 2: Save result to Java/Postgres (Port 8080)
+                // We retrieve the email stored in localStorage during Login.jsx
+                const userEmail = localStorage.getItem('userEmail') || "guest@test.com";
+
+                const saveResponse = await fetch('http://localhost:8080/api/auth/save-result', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: userEmail,
+                        recommendedCourse: aiData.courses[0], // Extracting first course string
+                        clusterId: aiData.cluster
+                    }),
+                });
+
+                if (!saveResponse.ok) {
+                    console.warn("Prediction received but failed to save to Database.");
+                }
+
+                // STEP 3: Store result locally for display and navigate
+                localStorage.setItem('user_recommendation', JSON.stringify(aiData));
                 navigate('/result');
+
             } catch (error) {
-                console.error("AI Error:", error);
-                alert("The AI Engine is not running. Please start the Flask server.");
+                console.error("Submission Error:", error);
+                alert("Critical Error: Ensure both Flask (5000) and Java (8080) servers are running.");
             }
         }
     };
@@ -101,6 +124,5 @@ const Quiz = () => {
             <Footer />
         </div>
     );
-};
-
+}   
 export default Quiz;

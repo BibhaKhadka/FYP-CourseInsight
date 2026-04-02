@@ -13,29 +13,49 @@ import trophy from '../assets/photos/trophy.png';
 const Home = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    useEffect(()=>{
-        if (location.hash==='#how-it-works'){
+
+    const handleStartClick = () => {
+        const isAuthenticated = localStorage.getItem('isAuthenticated');
+        
+        if (isAuthenticated === 'true') {
+            // If already logged in, go straight to quiz
+            navigate('/quiz');
+        } else {
+            // Otherwise, force them to login first
+            navigate('/login');
+        }
+    };
+
+    useEffect(() => {
+        if (location.hash === '#how-it-works') {
             const section = document.getElementById('how-it-works');
-            if(section){
-                setTimeout(()=>{
-                    section.scrollIntoView({behavior:'smooth'});
+            if (section) {
+                setTimeout(() => {
+                    section.scrollIntoView({ behavior: 'smooth' });
                 }, 100);
             }
         }
     }, [location]);
+
     return (
         <div className='home-wrapper'>
             <Header />
+            
             <section className='hero-section'>
                 <h1>Discover Your Perfect <br /><span className='green-highlight'>Learning Path</span></h1>
-                <p>Take our intelligent quiz assessment and receive personalized course recommendations tailored to your unique skills and learning goals. </p>
-                <button className='start-btn' onClick={() => navigate('/quiz')}>Start Quiz</button>
+                <p>Take our intelligent quiz assessment and receive personalized course recommendations tailored to your unique skills and learning goals.</p>
+                
+                <button className='start-btn' onClick={handleStartClick}>
+                    Start Quiz
+                </button>
+
                 <div className="hero-info-bar">
                     <span><img src={clock} alt="icon" />5 minutes</span>
                     <span><img src={chart} alt="icon" />15 questions</span>
                     <span><img src={circle} alt="icon" />Personalized results</span>
                 </div>
             </section>
+
             <section id="how-it-works" className='how-it-works'>
                 <h2>How It Works</h2>
                 <p className='section-desc'>Three simple steps to your personalized learning journey.</p>
@@ -57,9 +77,10 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
             <Footer />
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;
