@@ -1,9 +1,9 @@
 package com.courseinsight.backend.controller;
 
 import com.courseinsight.backend.model.User;
-import com.courseinsight.backend.model.Result; // New Model
+import com.courseinsight.backend.model.Result; 
 import com.courseinsight.backend.repository.UserRepository;
-import com.courseinsight.backend.repository.ResultRepository; // New Repository
+import com.courseinsight.backend.repository.ResultRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
